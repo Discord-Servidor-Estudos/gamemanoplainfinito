@@ -15,7 +15,9 @@ var inicio = true;
 
 
 function startgame() {
+// toda vez que clicar
 
+    // verifica se é inicio de jogo, se for preparar os baralhos e ditribuir cartas
     if (inicio) {
         embaralhar(deckh, baralhoh);
         // mandar deck do thanos e baralho do thanos como argumentos
@@ -25,41 +27,45 @@ function startgame() {
             "6hf", "6cm"];
         deckt = ["1jm", "1or", "1or", "2cg", "2ja", "3je", "3en",
             "4jp", "4pm", "5fe", "5jr", "6jt", "7th"];
-        inicio = false;
+            // cartas para thanos, são 03 no inicio
+        // mão recebe a proxima carta do baralho
         maothanos[0] = baralhot.shift();
         maothanos[1] = baralhot.shift();
         maothanos[2] = baralhot.shift();
+        maoheroi[0] = baralhoh.shift();
+        // comecou o game, portanto inicio falso
+        inicio=false;
+
     };
+    // mudança no texto do botão
     if (document.getElementById("start").innerText == "Start") {
         document.getElementById("start").innerText = "Clique para sua vez heroi";
     } else { document.getElementById("start").innerText = "Start" };
-
-
-    // mandar deck do heroi e baralho do heroi como argumentos
-
-    // cartas para thanos, são 03 no inicio
-
-    //console.log("baralho thanos:> "+baralhot.toString());
-    //console.log("e na mão thanos :=> " + maothanos.toString());
-    // mão de herois apenas 1 carta
-    maoheroi[0] = baralhoh.shift();
-    //console.log("baralho herois:> "+baralhoh.toString());
-    //console.log("e na mão  :=> " + maoheroi.toString());
+    
+    
     document.getElementById("maoh1").
         setAttribute("src", "./img/herois/" + maoheroi[0] + ".png");
     vozthanos.volume = 0.8;
     vozthanos.play();
+
     // primeira fase jogando aleatorio sem consultar a memoria
+    // todo: pensar em como trabalharemos guardar informações de cartas na "memória"
     var x = Math.floor(Math.random() * 3);
     document.getElementById("cat").setAttribute("src", "./img/thanos/" + maothanos[x] + ".png");
     document.getElementById("cat").style.visibility = "visible";
     document.getElementById("maot1").style.visibility = "hidden";
-    // atraves do switch case iremos analisar a carta e realizar o seu efeito
-    // regras das joias que possuem 03 letras
+    // atraves do switch case iremos analisar a carta e realizar o seu efeito e/ou  
+    // regras das joias...
     var escrito = document.getElementById("escritos");
+    // exibir
+     // exibe a carta
+     var cartajogada = document.getElementById("cat");
+     cartajogada.style.visibility = "visible";
     switch (maothanos[x]) {
+        //"1jm", "1or", "1or", "2cg", "2ja", "3je", "3en",
+        // "4jp", "4pm", "5fe", "5jr", "6jt", "7th"
         case '1or':
-            // para um jogo de 02 esta carta é igual a joia da mente// 
+            // para um jogo entre 02 esta carta é igual a joia da mente// 
             var numero = Math.floor(Math.random() * 5) + 1;
             escrito.innerText = "eu escolhi o número " + numero;
             if (maoheroi[0].slice(0, 1) != numero) {
@@ -67,42 +73,159 @@ function startgame() {
 
             } else {
                 escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
+                // programar perca de vida do heroi
+                // placar
+                //
             };
-
-            var descarte = document.getElementById("cat");
-            descarte.style.visibility = "visible";
+            //pdescartes=pdescartes+1;
+            pdescartes++;
             document.getElementById("mesathanos").style.visibility = "visible";
-            pdescartes = pdescartes + 1;
-            document.getElementById("met" + pdescartes).setAttribute("src", descarte.getAttribute("src"));
-            document.getElementById("met" + pdescartes).visibility = "visible";
+            document.getElementById("mt" + pdescartes).setAttribute("src", 
+            cartajogada.getAttribute("src"));
             delete maothanos[x];
             maothanos[x] = baralhot.shift();
             break;
+        case "1jm":
+             // para um jogo entre 02 esta carta é igual a joia da mente// 
+             var numero = Math.floor(Math.random() * 5) + 1;
+             escrito.innerText = "eu escolhi o número " + numero;
+             if (maoheroi[0].slice(0, 1) != numero) {
+                 escrito.innerText = escrito.innerText + " , e me dei mal ...";
+ 
+             } else {
+                 escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
+                 // programar perca de vida do heroi
+                 // placar
+                 //
+             };
+             //pdescartes=pdescartes+1;
+             pdescartes++;
+             document.getElementById("mesathanos").style.visibility = "visible";
+             document.getElementById("mt" + pdescartes).setAttribute("src", 
+             cartajogada.getAttribute("src"));
+             delete maothanos[x];
+             maothanos[x] = baralhot.shift();
+            break;
+        case "5fe":
+                // para um jogo entre 02 esta carta é igual a joia da mente// 
+                var numero = Math.floor(Math.random() * 5) + 1;
+                escrito.innerText = "eu escolhi o número " + numero;
+                if (maoheroi[0].slice(0, 1) != numero) {
+                    escrito.innerText = escrito.innerText + " , e me dei mal ...";
+    
+                } else {
+                    escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
+                    // programar perca de vida do heroi
+                    // placar
+                    //
+                };
+                //pdescartes=pdescartes+1;
+                pdescartes++;
+                document.getElementById("mesathanos").style.visibility = "visible";
+                document.getElementById("mt" + pdescartes).setAttribute("src", 
+                cartajogada.getAttribute("src"));
+                delete maothanos[x];
+                maothanos[x] = baralhot.shift();
+               break;
         case "4pm":
-            // joia da mente, escolha um número para derrotar// 
-            //var escrito = document.getElementById("escritos");
-            //escrito.textcontent="eu escolhi o número "+numero;
+                // para um jogo entre 02 esta carta é igual a joia da mente// 
+                var numero = Math.floor(Math.random() * 5) + 1;
+                escrito.innerText = "eu escolhi o número " + numero;
+                if (maoheroi[0].slice(0, 1) != numero) {
+                    escrito.innerText = escrito.innerText + " , e me dei mal ...";
+    
+                } else {
+                    escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
+                    // programar perca de vida do heroi
+                    // placar
+                    //
+                };
+                //pdescartes=pdescartes+1;
+                pdescartes++;
+                document.getElementById("mesathanos").style.visibility = "visible";
+                document.getElementById("mt" + pdescartes).setAttribute("src", 
+                cartajogada.getAttribute("src"));
+                delete maothanos[x];
+                maothanos[x] = baralhot.shift();
+               break;
+        case "4jp":
+                // para um jogo entre 02 esta carta é igual a joia da mente// 
+                var numero = Math.floor(Math.random() * 5) + 1;
+                escrito.innerText = "eu escolhi o número " + numero;
+                if (maoheroi[0].slice(0, 1) != numero) {
+                    escrito.innerText = escrito.innerText + " , e me dei mal ...";
+    
+                } else {
+                    escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
+                    // programar perca de vida do heroi
+                    // placar
+                    //
+                };
+                //pdescartes=pdescartes+1;
+                pdescartes++;
+                document.getElementById("mesathanos").style.visibility = "visible";
+                document.getElementById("mt" + pdescartes).setAttribute("src", 
+                cartajogada.getAttribute("src"));
+                delete maothanos[x];
+                maothanos[x] = baralhot.shift();
+               break;
+        case "3en":
+             // para um jogo entre 02 esta carta é igual a joia da mente// 
+             var numero = Math.floor(Math.random() * 5) + 1;
+             escrito.innerText = "eu escolhi o número " + numero;
+             if (maoheroi[0].slice(0, 1) != numero) {
+                 escrito.innerText = escrito.innerText + " , e me dei mal ...";
+ 
+             } else {
+                 escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
+                 // programar perca de vida do heroi
+                 // placar
+                 //
+             };
+             //pdescartes=pdescartes+1;
+             pdescartes++;
+             document.getElementById("mesathanos").style.visibility = "visible";
+             document.getElementById("mt" + pdescartes).setAttribute("src", 
+             cartajogada.getAttribute("src"));
+             delete maothanos[x];
+             maothanos[x] = baralhot.shift();
             break;
-        case 3:
-            day = "Wednesday";
+        case "2cg":
+             // para um jogo entre 02 esta carta é igual a joia da mente// 
+             var numero = Math.floor(Math.random() * 5) + 1;
+             escrito.innerText = "eu escolhi o número " + numero;
+             if (maoheroi[0].slice(0, 1) != numero) {
+                 escrito.innerText = escrito.innerText + " , e me dei mal ...";
+ 
+             } else {
+                 escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
+                 // programar perca de vida do heroi
+                 // placar
+                 //
+             };
+             //pdescartes=pdescartes+1;
+             pdescartes++;
+             document.getElementById("mesathanos").style.visibility = "visible";
+             document.getElementById("mt" + pdescartes).setAttribute("src", 
+             cartajogada.getAttribute("src"));
+             delete maothanos[x];
+             maothanos[x] = baralhot.shift();
             break;
-        case 4:
-            day = "Thursday";
-            break;
-        case 5:
-            day = "Friday";
-            break;
-        case 6:
-            day = "Saturday";
+           
     }
 }
 function embaralhar(deck, baralho) {
-    var origem = deck.toString();
+    // limite por exemplo 13
     var limite = deck.length;
     for (let pos = 0; pos < limite; pos++) {
-        sorteio = Math.floor(Math.random() * deck.length);
+        // sorteio posição aleatoria de 0 a length
+        sorteio = Math.floor(Math.random() * limite);
+        // baralho(0)<=====deck(sorteio)
         baralho[pos] = deck[sorteio];
+        //splice retira a posição 1 a partir do sorteio
         deck.splice(sorteio, 1);
+        // atualizo a variavel limite com o novo tamanho do deck 
+        limite = deck.length;
     }
 }
 function ampliar(x) {
