@@ -5,9 +5,9 @@ var deckh = ["1ha", "1se", "1ne", "2vn", "2hf", "2gm", "3ca",
     "6hf", "6cm"];
 var deckt = ["1jm", "1or", "1or", "2cg", "2ja", "3je", "3en",
     "4jp", "4pm", "5fe", "5jr", "6jt", "7th"];
-var memoriathanos = new Array(01);
 var baralhoh = new Array(15);
 var baralhot = new Array(12);
+var memoriathanos = new Array(01);
 var maoheroi = new Array(1);
 var maothanos = new Array(2);
 var pdescartes = 0;
@@ -16,7 +16,6 @@ var inicio = true;
 
 function startgame() {
 // toda vez que clicar
-
     // verifica se é inicio de jogo, se for preparar os baralhos e ditribuir cartas
     if (inicio) {
         embaralhar(deckh, baralhoh);
@@ -38,19 +37,25 @@ function startgame() {
 
     };
     // mudança no texto do botão
-    if (document.getElementById("start").innerText == "Start") {
-        document.getElementById("start").innerText = "Clique para sua vez heroi";
-    } else { document.getElementById("start").innerText = "Start" };
+    var botao = document.getElementById("start");
+    
+    if (botao.innerText == "Start") {
+        botao.innerText = "Clique para sua vez heroi";
+    } else { botao.innerText = "Start" };
     
     
-    document.getElementById("maoh1").
-        setAttribute("src", "./img/herois/" + maoheroi[0] + ".png");
+    document.getElementById("maoh1").setAttribute("src", "./img/herois/" + maoheroi[0] + ".png");
     vozthanos.volume = 0.8;
     vozthanos.play();
 
     // primeira fase jogando aleatorio sem consultar a memoria
     // todo: pensar em como trabalharemos guardar informações de cartas na "memória"
     var x = Math.floor(Math.random() * 3);
+    while (maothanos[x]=='7th') {
+        console.log("Ops rolou um 7 naum poidi");
+        var x = Math.floor(Math.random() * 3);
+    }
+
     document.getElementById("cat").setAttribute("src", "./img/thanos/" + maothanos[x] + ".png");
     document.getElementById("cat").style.visibility = "visible";
     document.getElementById("maot1").style.visibility = "hidden";
@@ -60,8 +65,8 @@ function startgame() {
     // exibir
      // exibe a carta
      var cartajogada = document.getElementById("cat");
-     cartajogada.style.visibility = "visible";
-    switch (maothanos[x]) {
+    
+     switch (maothanos[x]) {
         //"1jm", "1or", "1or", "2cg", "2ja", "3je", "3en",
         // "4jp", "4pm", "5fe", "5jr", "6jt", "7th"
         case '1or':
@@ -70,19 +75,19 @@ function startgame() {
             escrito.innerText = "eu escolhi o número " + numero;
             if (maoheroi[0].slice(0, 1) != numero) {
                 escrito.innerText = escrito.innerText + " , e me dei mal ...";
-
+                 //pdescartes=pdescartes+1;
+                pdescartes++;
+                document.getElementById("mesathanos").style.visibility = "visible";
+                document.getElementById("mt" + pdescartes).setAttribute("src", 
+                cartajogada.getAttribute("src"));
+                delete maothanos[x];
             } else {
                 escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
                 // programar perca de vida do heroi
                 // placar
                 //
             };
-            //pdescartes=pdescartes+1;
-            pdescartes++;
-            document.getElementById("mesathanos").style.visibility = "visible";
-            document.getElementById("mt" + pdescartes).setAttribute("src", 
-            cartajogada.getAttribute("src"));
-            delete maothanos[x];
+           
             maothanos[x] = baralhot.shift();
             break;
         case "1jm":
@@ -214,6 +219,9 @@ function startgame() {
            
     }
 }
+
+
+
 function embaralhar(deck, baralho) {
     // limite por exemplo 13
     var limite = deck.length;
