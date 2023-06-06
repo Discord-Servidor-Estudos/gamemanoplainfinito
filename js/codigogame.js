@@ -89,6 +89,8 @@ function startgame() {
             };
            
             maothanos[x] = baralhot.shift();
+            alert("p");
+            console.log(baralhot);
             break;
         case "1jm":
              // para um jogo entre 02 esta carta é igual a joia da mente// 
@@ -96,112 +98,17 @@ function startgame() {
              escrito.innerText = "eu escolhi o número " + numero;
              if (maoheroi[0].slice(0, 1) != numero) {
                  escrito.innerText = escrito.innerText + " , e me dei mal ...";
- 
-             } else {
-                 escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
-                 // programar perca de vida do heroi
-                 // placar
-                 //
-             };
-             //pdescartes=pdescartes+1;
-             pdescartes++;
-             document.getElementById("mesathanos").style.visibility = "visible";
-             document.getElementById("mt" + pdescartes).setAttribute("src", 
-             cartajogada.getAttribute("src"));
-             delete maothanos[x];
-             maothanos[x] = baralhot.shift();
-            break;
-        case "5fe":
-                // para um jogo entre 02 esta carta é igual a joia da mente// 
-                var numero = Math.floor(Math.random() * 5) + 1;
-                escrito.innerText = "eu escolhi o número " + numero;
-                if (maoheroi[0].slice(0, 1) != numero) {
-                    escrito.innerText = escrito.innerText + " , e me dei mal ...";
-    
-                } else {
-                    escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
-                    // programar perca de vida do heroi
-                    // placar
-                    //
-                };
-                //pdescartes=pdescartes+1;
-                pdescartes++;
-                document.getElementById("mesathanos").style.visibility = "visible";
-                document.getElementById("mt" + pdescartes).setAttribute("src", 
-                cartajogada.getAttribute("src"));
-                delete maothanos[x];
-                maothanos[x] = baralhot.shift();
-               break;
-        case "4pm":
-                // para um jogo entre 02 esta carta é igual a joia da mente// 
-                var numero = Math.floor(Math.random() * 5) + 1;
-                escrito.innerText = "eu escolhi o número " + numero;
-                if (maoheroi[0].slice(0, 1) != numero) {
-                    escrito.innerText = escrito.innerText + " , e me dei mal ...";
-    
-                } else {
-                    escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
-                    // programar perca de vida do heroi
-                    // placar
-                    //
-                };
-                //pdescartes=pdescartes+1;
-                pdescartes++;
-                document.getElementById("mesathanos").style.visibility = "visible";
-                document.getElementById("mt" + pdescartes).setAttribute("src", 
-                cartajogada.getAttribute("src"));
-                delete maothanos[x];
-                maothanos[x] = baralhot.shift();
-               break;
-        case "4jp":
-                // para um jogo entre 02 esta carta é igual a joia da mente// 
-                var numero = Math.floor(Math.random() * 5) + 1;
-                escrito.innerText = "eu escolhi o número " + numero;
-                if (maoheroi[0].slice(0, 1) != numero) {
-                    escrito.innerText = escrito.innerText + " , e me dei mal ...";
-    
-                } else {
-                    escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
-                    // programar perca de vida do heroi
-                    // placar
-                    //
-                };
-                //pdescartes=pdescartes+1;
-                pdescartes++;
-                document.getElementById("mesathanos").style.visibility = "visible";
-                document.getElementById("mt" + pdescartes).setAttribute("src", 
-                cartajogada.getAttribute("src"));
-                delete maothanos[x];
-                maothanos[x] = baralhot.shift();
-               break;
-        case "3en":
-             // para um jogo entre 02 esta carta é igual a joia da mente// 
-             var numero = Math.floor(Math.random() * 5) + 1;
-             escrito.innerText = "eu escolhi o número " + numero;
-             if (maoheroi[0].slice(0, 1) != numero) {
-                 escrito.innerText = escrito.innerText + " , e me dei mal ...";
- 
-             } else {
-                 escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
-                 // programar perca de vida do heroi
-                 // placar
-                 //
-             };
-             //pdescartes=pdescartes+1;
-             pdescartes++;
-             document.getElementById("mesathanos").style.visibility = "visible";
-             document.getElementById("mt" + pdescartes).setAttribute("src", 
-             cartajogada.getAttribute("src"));
-             delete maothanos[x];
-             maothanos[x] = baralhot.shift();
-            break;
-        case "2cg":
-             // para um jogo entre 02 esta carta é igual a joia da mente// 
-             var numero = Math.floor(Math.random() * 5) + 1;
-             escrito.innerText = "eu escolhi o número " + numero;
-             if (maoheroi[0].slice(0, 1) != numero) {
-                 escrito.innerText = escrito.innerText + " , e me dei mal ...";
- 
+                // comprar 1 carta e reebaralhar a "jm' no baralhot
+                   console.log(x);
+                   maothanos[x]=baralhot.shift;
+                   baralhot.push('jm');
+                   console.log("baralho com jm");
+                   console.log(baralhot);
+                   bvelho=baralhot;
+                   embaralhar(bvelho,baralhot);
+                   console.log("baralho reembaralhado, baralho cabalho")
+                   console.log(baralhot)
+                   alert("pause");
              } else {
                  escrito.innerText = escrito.innerText + "... hah hah hah Você ira descartar esta carta e perder vida !!!";
                  // programar perca de vida do heroi
@@ -223,15 +130,15 @@ function startgame() {
 
 
 function embaralhar(deck, baralho) {
-    // limite por exemplo 13
-    var limite = deck.length;
-    for (let pos = 0; pos < limite; pos++) {
+   
+    
+    for (let pos = 0; pos < (baralho.length-1); pos++) {
         // sorteio posição aleatoria de 0 a length
-        sorteio = Math.floor(Math.random() * limite);
+        sorteio = Math.floor(Math.random() * deck.length);
         // baralho(0)<=====deck(sorteio)
         baralho[pos] = deck[sorteio];
         //splice retira a posição 1 a partir do sorteio
-        deck.splice(sorteio, 1);
+        deck.splice(sorteio,1);
         // atualizo a variavel limite com o novo tamanho do deck 
         limite = deck.length;
     }
